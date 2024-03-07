@@ -1,17 +1,17 @@
-# WebAutoF5 🔄
+# WebAutoF5Json 🔄
 
-WebAutoF5 est une application Python 🐍 conçue pour rafraîchir automatiquement des pages web à intervalles réguliers. Elle utilise le navigateur Edge via Selenium pour ouvrir et rafraîchir les pages, et l'interface utilisateur est construite avec Tkinter.
+WebAutoF5Json est une application Python 🐍 qui permet de rafraîchir automatiquement des pages web à intervalles définis par l'utilisateur via un fichier json. 
 
 ## Fonctionnalités 🌟
 
-- 🔄 Rafraîchissement automatique de plusieurs pages web simultanément à intervalles réguliers.
-- ✅ Validation des URLs saisies par l'utilisateur pour s'assurer qu'elles sont valides avant de démarrer le rafraîchissement.
-- 🖥️ Interface utilisateur graphique simple et intuitive pour démarrer et arrêter le rafraîchissement.
-- 🚨 Gestion des erreurs et des exceptions, avec des messages d'erreur appropriés affichés à l'utilisateur.
+- 🔄 Rafraîchissement automatique de pages web selon un intervalle spécifié dans un fichier de configuration JSON.
+- 📝 Configuration simple et rapide par modification du fichier `config.json`.
+- 🚨 Gestion robuste des erreurs avec des journaux détaillés pour le dépannage.
+- 🛠️ Support pour le navigateur Edge grâce à Selenium, avec possibilité d'étendre à d'autres navigateurs.
 
 ## Installation 🔧
 
-Avant de démarrer, assurez-vous d'avoir Python installé sur votre machine. Ensuite, installez toutes les dépendances nécessaires à l'aide du fichier `requirements.txt` fourni avec le projet :
+Assurez-vous que Python et pip sont installés sur votre machine. Clonez ensuite le dépôt et installez les dépendances requises :
 
 ```bash
 pip install -r requirements.txt
@@ -19,51 +19,53 @@ pip install -r requirements.txt
 
 Cette commande installera automatiquement toutes les bibliothèques et paquets Python nécessaires au bon fonctionnement de l'application.
 
+## Configuration 📁
+
+Avant de lancer l'application, configurez les URLs et les intervalles de rafraîchissement dans le fichier config.json :
+
+```bash
+{
+  "urls": ["http://example.com", "http://example.org"],
+  "refresh_time": 10
+}
+
+```
+
 ## Utilisation 🛠️
 
 Pour démarrer l'application, exécutez le script principal :
 
 ```bash
-python main.py
+python src/main.py
 ```
-
-Une fois l'application démarrée, suivez ces étapes :
-
-1- Entrez l'URL ou les URLs que vous souhaitez rafraîchir dans les champs de saisie.
-2- Spécifiez l'intervalle de temps (en secondes) entre chaque rafraîchissement dans le champ dédié.
-3- Cliquez sur le bouton "Commencer le Rafraîchissement" pour démarrer le processus.
-4- Pour arrêter le rafraîchissement, cliquez sur le bouton "Arrêter le Rafraîchissement".
 
 ## Architecture du projet 🏗️
 
 ```
-WebAutoF5/
+WebAutoF5Json/
 │
 ├── src/
-│   ├── main.py                # Point d'entrée principal
-│   ├── controller/            # Gère l'interaction entre UI et modèle
-│   │   └── refresher_controller.py
-│   ├── model/                 # Modèle de rafraîchissement des pages web
-│   │   └── page_refresher.py
-│   ├── view/                  # UI construit avec Tkinter
-│   │   └── app_ui.py
-│   └── logging_config.py      # Configuration des logs avec support couleur
+│   ├── main.py                          # Point d'entrée principal
+│   ├── controller/                      # Contrôleur principal
+│   │   └── refresher_controller.py      # Gestion de la configuration et du rafraîchissement
+│   ├── model/                           # Modèle pour rafraîchir les pages
+│   │   └── page_refresher.py            # Utilise Selenium pour interagir avec les navigateurs
+│   └── logging_config.py                # Configuration personnalisée des logs
 │
-├── tests/                     # Tests unitaires
-│   ├── integration/
-│   │   └── test_controller_model_integration.py
-│   └── unit/
-│       ├── test_app_ui.py
-│       ├── test_page_refresher.py
-│       └── test_refresher_controller.py
+├── config/
+│   └── config.json                      # Fichier de configuration JSON pour l'application
 │
-├── drivers/                   # Pilotes pour Selenium
+├── tests/                               # Tests unitaires et d'intégration
+│   └── ...                              # Fichiers de test
+│
+├── drivers/                             # Pilotes WebDriver pour Selenium
 │   └── msedgedriver.exe
 │
-├── docs/                      # Documentation et fichiers d'aide
+├── docs/                                # Documentation du projet
 │   └── documentation.pdf
 │
-└── venv/                      # Environnement virtuel Python
+└── venv/                                # Environnement virtuel Python
+    └── ...                              # Dépendances installées
 ```
 
 ## Tests 🧪
@@ -71,7 +73,7 @@ WebAutoF5/
 Des tests unitaires sont fournis pour tester l'intégration entre le contrôleur, le modèle, et l'UI. Pour exécuter les tests, utilisez :
 
 ```bash
-python -m unittest
+python -m unittest discover -s tests
 ```
 
 ## Contribution 🤝
