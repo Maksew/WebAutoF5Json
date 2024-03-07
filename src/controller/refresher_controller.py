@@ -16,7 +16,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 
 
 class RefresherController:
-    def __init__(self, config_path='config/config.json'):
+    def __init__(self, config_path='../config/config.json'):
         self.config_path = config_path
         self.page_refresher = None
         self.config = None
